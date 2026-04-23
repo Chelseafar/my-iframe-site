@@ -28,13 +28,51 @@
 
 /* ─── BASE ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth;font-size:16px;scrollbar-width:none;-ms-overflow-style:none}
 body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--forest);border-radius:2px}
+/* Hide scrollbar — page still scrolls via wheel/touch, just no visible bar (fixes Wix double-scrollbar) */
+::-webkit-scrollbar{display:none}
 img,video{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
+
+/* ─── CUSTOM CURSOR ─── */
+@media(hover:hover) and (pointer:fine){
+  *{cursor:none!important}
+
+  /* Main star cursor */
+  .cursor-star{
+    position:fixed;top:0;left:0;z-index:99999;pointer-events:none;
+    width:18px;height:18px;
+    transform:translate(-50%,-50%) rotate(0deg);
+    transition:width .25s,height .25s,opacity .3s;
+    will-change:transform;
+  }
+  .cursor-star svg{width:100%;height:100%}
+  .cursor-star.active{width:24px;height:24px}
+  .cursor-star.hidden{opacity:0}
+
+  /* Sparkle trail particles */
+  .sparkle{
+    position:fixed;pointer-events:none;z-index:99998;
+    border-radius:50%;transform:translate(-50%,-50%);
+    animation:sparkle-float .7s ease forwards;
+  }
+  @keyframes sparkle-float{
+    0%  {opacity:.9;transform:translate(-50%,-50%) scale(1)}
+    100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% - 22px)) scale(0)}
+  }
+
+  /* Soft glow under star */
+  .cursor-glow{
+    position:fixed;top:0;left:0;z-index:99997;pointer-events:none;
+    width:48px;height:48px;border-radius:50%;
+    background:radial-gradient(circle,rgba(192,180,212,.18) 0%,transparent 70%);
+    transform:translate(-50%,-50%);
+    transition:opacity .3s;
+    will-change:transform;
+  }
+  .cursor-glow.hidden{opacity:0}
+}
 
 /* ─── NAV ─── */
 #nav{
@@ -644,6 +682,22 @@ footer{background:var(--bg);padding:48px 56px;border-top:1px solid var(--border)
 </head>
 <body>
 
+<!-- Custom cursor (hidden on touch devices automatically) -->
+<div class="cursor-star" id="cursorStar">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 4-pointed star -->
+    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="#C0B4D4"/>
+    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="url(#starGrad)"/>
+    <defs>
+      <radialGradient id="starGrad" cx="50%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#E8DFFF"/>
+        <stop offset="100%" stop-color="#C4A97D"/>
+      </radialGradient>
+    </defs>
+  </svg>
+</div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
 <!-- NAV -->
 <nav id="nav">
   <span class="nav-logo">Chelsea Liz</span>
@@ -1232,6 +1286,59 @@ footer{background:var(--bg);padding:48px 56px;border-top:1px solid var(--border)
       });
     });
   });
+
+  // ── Custom star cursor + sparkle trail ──
+  const star = document.getElementById('cursorStar');
+  const glow = document.getElementById('cursorGlow');
+  const isMouse = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  if(star && isMouse){
+    let mx = 0, my = 0, glowX = 0, glowY = 0, angle = 0;
+    let lastSparkle = 0;
+    const sparkleColors = ['#C0B4D4','#C4A97D','#F0EBE0','#9B8CB4','#7A9B5C'];
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      star.style.transform = `translate(calc(${mx}px - 50%), calc(${my}px - 50%)) rotate(${angle}deg)`;
+
+      // Throttle sparkle creation (~every 40ms)
+      const now = Date.now();
+      if(now - lastSparkle > 40){
+        lastSparkle = now;
+        spawnSparkle(mx, my);
+        angle += 8; // star slowly rotates as you move
+      }
+    }, {passive:true});
+
+    // Glow follows with soft lag
+    (function animGlow(){
+      glowX += (mx - glowX) * 0.1;
+      glowY += (my - glowY) * 0.1;
+      glow.style.transform = `translate(calc(${glowX}px - 50%), calc(${glowY}px - 50%))`;
+      requestAnimationFrame(animGlow);
+    })();
+
+    function spawnSparkle(x, y){
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      const size = Math.random() * 5 + 3;
+      const dx = (Math.random() - 0.5) * 24;
+      s.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${sparkleColors[Math.floor(Math.random()*sparkleColors.length)]};--dx:${dx}px;border-radius:${Math.random()>0.5?'50%':'2px'}`;
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 720);
+    }
+
+    // Grow star on hover over interactive elements
+    const hoverEls = 'a,button,.ftab,.work-item,.press-card,.aff-card,.svc-card,.r-card,.ad-item,.nav-btn';
+    document.querySelectorAll(hoverEls).forEach(el => {
+      el.addEventListener('mouseenter', () => star.classList.add('active'));
+      el.addEventListener('mouseleave', () => star.classList.remove('active'));
+    });
+
+    // Hide when cursor leaves window
+    document.addEventListener('mouseleave', () => { star.classList.add('hidden'); glow.classList.add('hidden'); });
+    document.addEventListener('mouseenter', () => { star.classList.remove('hidden'); glow.classList.remove('hidden'); });
+  }
 
   // Form submit
   const form = document.querySelector('.cf');
