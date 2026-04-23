@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chelsea Liz | Content Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --bg:      #161914;
+  --bg2:     #1D2118;
+  --card:    #23271C;
+  --card2:   #292E22;
+  --border:  rgba(240,235,224,0.08);
+  --fg:      #F0EBE0;
+  --fg2:     #A8A090;
+  --forest:  #3D5228;
+  --fgreen:  #5C7A3C;
+  --lav:     #9B8CB4;
+  --lavl:    #C0B4D4;
+  --tan:     #C4A97D;
+  --sage:    #7A9B5C;
+  --r:       12px;
+  --transition: 0.38s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+/* ─── BASE ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--forest);border-radius:2px}
+img,video{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+/* ─── NAV ─── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:22px 56px;display:flex;justify-content:space-between;align-items:center;
+  transition:padding var(--transition),background var(--transition),border-color var(--transition);
+  border-bottom:1px solid transparent;
+}
+#nav.stuck{
+  padding:14px 56px;
+  background:rgba(22,25,20,0.9);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom-color:var(--border);
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg2);transition:color .3s}
+.nav-links a:hover{color:var(--lavl)}
+.nav-btn{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  border:1px solid rgba(240,235,224,.22);padding:10px 22px;color:var(--fg);
+  transition:border-color .3s,color .3s;
+}
+.nav-btn:hover{border-color:var(--lavl);color:var(--lavl)}
+
+/* ─── REVEAL ─── */
+.rev{opacity:0;transform:translateY(36px);transition:opacity .85s ease,transform .85s ease}
+.rev.in{opacity:1;transform:none}
+.rev-l{opacity:0;transform:translateX(-36px);transition:opacity .9s ease,transform .9s ease}
+.rev-l.in{opacity:1;transform:none}
+.rev-r{opacity:0;transform:translateX(36px);transition:opacity .9s ease,transform .9s ease}
+.rev-r.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ─── PILL TAGS ─── */
+.pill{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid rgba(240,235,224,.15);padding:7px 16px;border-radius:100px;
+  color:var(--fg2);background:rgba(240,235,224,.04);
+}
+.pill.green{border-color:rgba(92,122,60,.5);color:var(--sage);background:rgba(61,82,40,.12)}
+.pill.lav{border-color:rgba(155,140,180,.4);color:var(--lavl);background:rgba(155,140,180,.08)}
+.pill.tan{border-color:rgba(196,169,125,.4);color:var(--tan);background:rgba(196,169,125,.08)}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+
+/* eyebrow */
+.eyebrow{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--lav);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--lav)}
+
+/* section wrap */
+.wrap{max-width:1200px;margin:0 auto;padding:0 56px}
+section{padding:120px 0}
+
+/* divider line */
+.div-line{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
+
+/* ─────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────── */
+#home{
+  position:relative;height:100vh;
+  overflow:hidden;padding:0;
+}
+/* two-column inner grid — keeps scroll-hint out of grid flow */
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  height:100%;
+}
+.hero-bg{
+  position:absolute;inset:-15%;z-index:0;will-change:transform;
+  background:
+    radial-gradient(ellipse 75% 80% at 68% 18%, rgba(61,82,40,.4) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 55% at 12% 82%, rgba(155,140,180,.16) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 45% at 88% 75%, rgba(196,169,125,.07) 0%, transparent 65%),
+    linear-gradient(155deg,#0F1209 0%,#161914 45%,#141812 100%);
+}
+.hero-noise{
+  position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.45;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+}
+
+/* ── Hero photo column ── */
+.hero-photo{
+  position:relative;z-index:2;height:100%;overflow:hidden;
+  opacity:0;animation:hIn 1s ease .2s forwards;
+  /* Push photo below fixed nav so it doesn't bleed into menu */
+  padding-top:80px;
+}
+/* ★ EDIT PHOTO: To swap your hero photo, change the URL inside url('...') below */
+.hero-photo-inner{
+  width:100%;height:100%;
+  background-image:url('https://i.imgur.com/b00Sd8U.jpeg');
+  /* contain = full image shown, no cropping */
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center center;
+  position:relative;overflow:hidden;
+}
+/* Film corners sit OUTSIDE the photo-inner, framing it from the column edges */
+.hero-photo .film-corner.tl{top:calc(80px + 8px);left:8px}
+.hero-photo .film-corner.tr{top:calc(80px + 8px);right:8px}
+.hero-photo .film-corner.bl{bottom:8px;left:8px}
+.hero-photo .film-corner.br{bottom:8px;right:8px}
+/* Film grain on photo */
+.hero-photo-inner::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.06'/%3E%3C/svg%3E");
+  opacity:.6;mix-blend-mode:overlay;
+}
+/* Subtle vignette on photo */
+.hero-photo-inner::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to right, rgba(22,25,20,0.05) 0%, rgba(22,25,20,0.55) 100%);
+}
+/* Upload placeholder hint */
+.photo-placeholder{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;
+}
+.photo-placeholder-ring{
+  width:72px;height:72px;border-radius:50%;
+  border:1px dashed rgba(240,235,224,.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-placeholder p{
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(240,235,224,.25);text-align:center;line-height:1.6;
+}
+/* Film frame decorative corners */
+.film-corner{
+  position:absolute;width:24px;height:24px;z-index:3;
+  border-color:rgba(192,180,212,.3);border-style:solid;
+}
+.film-corner.tl{top:28px;left:20px;border-width:1px 0 0 1px}
+.film-corner.tr{top:28px;right:20px;border-width:1px 1px 0 0}
+.film-corner.bl{bottom:28px;left:20px;border-width:0 0 1px 1px}
+.film-corner.br{bottom:28px;right:20px;border-width:0 1px 1px 0}
+
+.hero-content{
+  position:relative;z-index:2;
+  padding:100px 52px 48px;
+  display:flex;flex-direction:column;justify-content:center;
+  /* Prevent content from overflowing if viewport is short */
+  overflow:hidden;
+}
+
+.hero-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;
+  opacity:0;transform:translateY(16px);animation:hIn .7s ease .3s forwards}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(42px,5.5vw,82px);font-weight:300;line-height:.98;
+  letter-spacing:-.025em;color:var(--fg);
+  opacity:0;transform:translateY(28px);animation:hIn .95s ease .55s forwards;
+}
+/* ── highlight word ── */
+.hl{
+  position:relative;display:inline-block;color:var(--lavl);
+  padding:0 6px;
+}
+.hl::after{
+  content:'';position:absolute;bottom:6px;left:0;right:0;
+  height:3px;background:var(--lav);opacity:.55;border-radius:2px;
+  transform:scaleX(0);transform-origin:left;
+  animation:hlIn .6s ease 1.3s forwards;
+}
+@keyframes hlIn{to{transform:scaleX(1)}}
+.hero-sub{
+  font-size:clamp(13px,1.3vw,16px);font-weight:300;color:var(--fg2);
+  margin-top:20px;margin-bottom:36px;line-height:1.75;max-width:520px;
+  opacity:0;transform:translateY(22px);animation:hIn .85s ease .8s forwards;
+}
+.hero-actions{
+  display:flex;gap:20px;align-items:center;flex-wrap:wrap;
+  opacity:0;transform:translateY(18px);animation:hIn .8s ease 1s forwards;
+}
+/* ghost btn */
+.btn-ghost{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--fg);border:1px solid rgba(240,235,224,.25);
+  padding:15px 36px;position:relative;overflow:hidden;
+  transition:border-color .4s;
+}
+.btn-ghost::before{
+  content:'';position:absolute;inset:0;background:var(--forest);
+  transform:translateX(-102%);
+  transition:transform .42s cubic-bezier(.25,.46,.45,.94);z-index:-1;
+}
+.btn-ghost:hover{border-color:var(--forest)}
+.btn-ghost:hover::before{transform:translateX(0)}
+/* arrow link */
+.btn-arrow{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--fg2);display:inline-flex;align-items:center;gap:10px;
+  transition:color .3s;
+}
+.btn-arrow svg{transition:transform .3s}
+.btn-arrow:hover{color:var(--lavl)}
+.btn-arrow:hover svg{transform:translateX(5px)}
+
+.scroll-hint{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:hIn .7s ease 1.5s forwards;
+}
+.scroll-hint span{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:rgba(127,120,105,.5)}
+.scroll-bar{width:1px;height:40px;background:linear-gradient(to bottom,var(--lav),transparent);animation:sBar 2s ease-in-out infinite}
+@keyframes hIn{to{opacity:1;transform:none}}
+@keyframes sBar{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ─────────────────────────────────────────────
+   ABOUT
+───────────────────────────────────────────── */
+#about{background:var(--bg2)}
+.about-inner{max-width:1200px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:center}
+.about-label{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.5vw,56px);font-weight:300;line-height:1.15;color:var(--fg);margin-bottom:28px}
+.about-label em{font-style:italic;color:var(--lavl)}
+.about-bio{font-size:15px;line-height:1.9;color:var(--fg2);font-weight:300;margin-bottom:32px}
+.about-bio strong{color:var(--fg);font-weight:400}
+.about-tags{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ─────────────────────────────────────────────
+   SELECTED WORK
+───────────────────────────────────────────── */
+#work{background:var(--bg)}
+.work-header{margin-bottom:48px}
+.work-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;color:var(--fg);margin-bottom:10px}
+.work-h2 em{font-style:italic;color:var(--tan)}
+.work-sub{font-size:13.5px;color:var(--fg2);font-weight:300;margin-bottom:36px}
+
+/* Filter tabs */
+.filter-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:40px}
+.ftab{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 18px;border:1px solid var(--border);color:var(--fg2);
+  background:transparent;cursor:pointer;border-radius:100px;
+  transition:all .3s;
+}
+.ftab:hover{border-color:rgba(240,235,224,.25);color:var(--fg)}
+.ftab.active{background:var(--forest);border-color:var(--forest);color:var(--fg)}
+
+/* Video grid — 4 per row */
+.work-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.work-item{
+  position:relative;overflow:hidden;background:var(--card);
+  border-radius:8px;cursor:pointer;
+  transition:transform .4s ease;
+}
+.work-item:hover{transform:translateY(-4px)}
+.work-item[data-cat]{display:block}
+.work-item.hidden{display:none}
+.work-thumb{
+  aspect-ratio:9/16;position:relative;overflow:hidden;
+}
+.work-bg{
+  width:100%;height:100%;
+  transition:transform .7s cubic-bezier(.25,.46,.45,.94);
+  position:relative;display:flex;align-items:center;justify-content:center;
+}
+.work-item:hover .work-bg{transform:scale(1.04)}
+/* play icon */
+.play-icon{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .35s;z-index:2;
+}
+.work-item:hover .play-icon{opacity:1}
+.play-circle{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(240,235,224,.15);backdrop-filter:blur(8px);
+  border:1px solid rgba(240,235,224,.25);
+  display:flex;align-items:center;justify-content:center;
+}
+/* gradient bgs for placeholders */
+.wg1{background:linear-gradient(160deg,#1A2812 0%,#2A3E1A 50%,#324A20 100%)}
+.wg2{background:linear-gradient(160deg,#1A1228 0%,#241A36 50%,#2E2240 100%)}
+.wg3{background:linear-gradient(160deg,#1E1208 0%,#2E1C10 50%,#3C2618 100%)}
+.wg4{background:linear-gradient(160deg,#12181A 0%,#1A2428 50%,#223040 100%)}
+.wg5{background:linear-gradient(160deg,#1A1A12 0%,#2A2A1A 50%,#343422 100%)}
+.wg6{background:linear-gradient(160deg,#1A0E14 0%,#2A1420 50%,#361A2A 100%)}
+.wg7{background:linear-gradient(160deg,#0E1A14 0%,#162A1E 50%,#1E3828 100%)}
+.wg8{background:linear-gradient(160deg,#16100E 0%,#221818 50%,#2E2020 100%)}
+
+.work-info{padding:14px 16px 18px}
+.work-cat{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--lav);margin-bottom:5px}
+.work-title{font-size:13px;font-weight:400;color:var(--fg);line-height:1.4}
+
+/* overlay */
+.work-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(22,25,20,.92) 0%,transparent 55%);
+  opacity:0;transition:opacity .38s;
+  display:flex;align-items:flex-end;padding:20px;border-radius:8px;
+}
+.work-item:hover .work-overlay{opacity:1}
+.work-tag{
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--lavl);padding:5px 12px;border:1px solid rgba(192,180,212,.3);
+  border-radius:100px;background:rgba(155,140,180,.12);
+}
+
+/* ─────────────────────────────────────────────
+   SERVICES — Ads sections
+───────────────────────────────────────────── */
+#services{background:var(--bg2)}
+.services-header{max-width:1200px;margin:0 auto 64px;padding:0 56px}
+.services-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,68px);font-weight:300;color:var(--fg);line-height:1.1;margin-bottom:16px}
+.services-h2 em{font-style:italic;color:var(--lavl)}
+.services-sub{font-size:14.5px;color:var(--fg2);font-weight:300;max-width:500px;line-height:1.75}
+
+/* Three cards */
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;max-width:1200px;margin:0 auto;padding:0 56px;
+}
+.svc-card{
+  background:var(--card);padding:52px 40px;
+  position:relative;overflow:hidden;
+  transition:background .4s;
+}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--lav),transparent);
+  opacity:0;transition:opacity .4s;
+}
+.svc-card:hover{background:var(--card2)}
+.svc-card:hover::before{opacity:1}
+.svc-type{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--lav);margin-bottom:24px;
+}
+.svc-type-dot{width:7px;height:7px;border-radius:50%;background:var(--lav)}
+.svc-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:var(--fg);margin-bottom:18px;line-height:1.2}
+.svc-tagline{font-size:13.5px;line-height:1.8;color:var(--fg2);font-weight:300;margin-bottom:32px}
+.svc-divider{height:1px;background:var(--border);margin-bottom:28px}
+.svc-label{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg2);margin-bottom:16px}
+.svc-list{list-style:none;margin-bottom:28px}
+.svc-list li{
+  font-size:13.5px;color:var(--fg2);font-weight:300;padding:7px 0;
+  border-bottom:1px solid rgba(240,235,224,.05);line-height:1.5;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.svc-list li::before{content:'–';color:var(--lav);flex-shrink:0;margin-top:1px}
+.svc-good{font-size:12px;color:var(--fg2);font-style:italic;line-height:1.7}
+.svc-good strong{color:var(--sage);font-style:normal;font-weight:400;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+/* highlight card */
+.svc-card.featured{background:var(--card2);border-left:1px solid rgba(155,140,180,.3)}
+
+/* video sub-grids inside ad sections */
+.ads-section{max-width:1200px;margin:0 auto;padding:0 56px}
+.ads-section + .ads-section{margin-top:80px}
+.ads-section-label{
+  font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--lav);display:flex;align-items:center;gap:14px;margin-bottom:32px;
+}
+.ads-section-label::before{content:'';width:24px;height:1px;background:var(--lav)}
+.ads-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ad-item{
+  background:var(--card);border-radius:8px;overflow:hidden;
+  cursor:pointer;transition:transform .35s ease;
+}
+.ad-item:hover{transform:translateY(-4px)}
+.ad-thumb{aspect-ratio:9/16;position:relative;overflow:hidden}
+.ad-bg{width:100%;height:100%;transition:transform .7s ease;display:flex;align-items:center;justify-content:center}
+.ad-item:hover .ad-bg{transform:scale(1.04)}
+.ad-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.ad-item:hover .ad-play{opacity:1}
+.ad-info{padding:12px 14px 16px}
+.ad-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tan);margin-bottom:4px}
+.ad-name{font-size:12.5px;color:var(--fg);line-height:1.4}
+
+/* ─────────────────────────────────────────────
+   REVIEWS
+───────────────────────────────────────────── */
+#reviews{background:var(--bg)}
+.rev-header{max-width:1200px;margin:0 auto 56px;padding:0 56px}
+.rev-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,60px);font-weight:300;color:var(--fg);margin-bottom:12px}
+.rev-h2 em{font-style:italic;color:var(--lavl)}
+.rev-sub{font-size:14px;color:var(--fg2);font-weight:300}
+.reviews-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:2px;max-width:1200px;margin:0 auto;padding:0 56px;
+}
+.r-card{background:var(--card);padding:44px 36px;transition:background .38s}
+.r-card:hover{background:var(--card2)}
+.r-quote{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:300;line-height:1.65;color:var(--fg);margin-bottom:32px}
+.r-stars{display:flex;gap:4px;margin-bottom:20px}
+.r-star{color:var(--tan);font-size:14px}
+.r-name{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2)}
+.r-brand{font-size:11px;color:var(--lav);letter-spacing:.12em;text-transform:uppercase}
+
+/* ─────────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────────── */
+#contact{background:var(--bg2);position:relative;overflow:hidden}
+.contact-glow{
+  position:absolute;top:-200px;right:-200px;
+  width:640px;height:640px;border-radius:50%;
+  background:radial-gradient(circle,rgba(61,82,40,.22) 0%,transparent 65%);
+  pointer-events:none;
+}
+.contact-glow2{
+  position:absolute;bottom:-160px;left:4%;
+  width:480px;height:480px;border-radius:50%;
+  background:radial-gradient(circle,rgba(155,140,180,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.contact-inner{max-width:780px;margin:0 auto;padding:0 56px;position:relative;z-index:1}
+.contact-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,88px);font-weight:300;line-height:1.0;color:var(--fg);margin-bottom:28px}
+.contact-h2 em{font-style:italic;color:var(--lavl)}
+.contact-intro{font-size:14.5px;line-height:1.85;color:var(--fg2);font-weight:300;margin-bottom:56px;max-width:520px}
+/* form */
+.cf{display:flex;flex-direction:column;gap:20px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cf-g{display:flex;flex-direction:column;gap:8px}
+.cf-l{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg2)}
+.cf-i,.cf-s,.cf-t{
+  background:rgba(240,235,224,.04);border:1px solid rgba(240,235,224,.09);
+  color:var(--fg);padding:14px 18px;font-size:14px;font-family:'Inter',sans-serif;
+  transition:border-color .32s,background .32s;outline:none;width:100%;appearance:none;
+}
+.cf-i::placeholder,.cf-t::placeholder{color:rgba(126,120,105,.35)}
+.cf-i:focus,.cf-s:focus,.cf-t:focus{border-color:rgba(155,140,180,.4);background:rgba(240,235,224,.06)}
+.cf-s{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg width='11' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4.5 5L10 1' stroke='%239B8CB4' stroke-width='1.2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 18px center}
+.cf-s option{background:#1D2118;color:var(--fg)}
+.cf-t{resize:none;min-height:148px}
+.btn-sub{
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--bg);background:var(--fg);border:none;
+  padding:17px 48px;cursor:pointer;font-family:'Inter',sans-serif;
+  position:relative;overflow:hidden;transition:color .4s;
+}
+.btn-sub::before{content:'';position:absolute;inset:0;background:var(--lavl);transform:translateX(-102%);transition:transform .42s cubic-bezier(.25,.46,.45,.94);z-index:0}
+.btn-sub:hover::before{transform:translateX(0)}
+.btn-sub span{position:relative;z-index:1}
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer{background:var(--bg);padding:48px 56px;border-top:1px solid var(--border)}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;gap:20px}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg2)}
+.foot-links{display:flex;gap:32px}
+.foot-links a{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg2);transition:color .3s}
+.foot-links a:hover{color:var(--lavl)}
+.foot-copy{font-size:11px;color:rgba(126,120,105,.4)}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+@media(max-width:960px){
+  .wrap,.about-inner,.services-header,.services-grid,.ads-section,.rev-header,.reviews-grid,.contact-inner{padding-left:24px;padding-right:24px}
+  #nav{padding:18px 24px}
+  #nav.stuck{padding:12px 24px}
+  .nav-links,.nav-btn{display:none}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo{display:none}
+  .hero-content{padding:100px 24px 60px;justify-content:center}
+  .about-inner{grid-template-columns:1fr;gap:40px}
+  .work-grid,.ads-grid{grid-template-columns:repeat(2,1fr)}
+  .services-grid,.reviews-grid{grid-template-columns:1fr;gap:2px}
+  .cf-row{grid-template-columns:1fr}
+  .foot-inner{flex-direction:column;text-align:center}
+}
+@media(max-width:520px){
+  .work-grid,.ads-grid{grid-template-columns:1fr 1fr}
+  .filter-tabs{gap:6px}
+}
+
+/* ─────────────────────────────────────────────
+   STATS BAR
+───────────────────────────────────────────── */
+.stats-bar{
+  max-width:1200px;margin:56px auto 0;padding:0 56px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;
+}
+.stat-cell{
+  background:var(--card);padding:28px 24px;text-align:center;
+  transition:background .38s;
+}
+.stat-cell:hover{background:var(--card2)}
+.stat-num{
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,3.5vw,42px);font-weight:300;
+  color:var(--fg);line-height:1;margin-bottom:8px;
+}
+.stat-lbl{
+  font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--fg2);
+}
+
+/* ─────────────────────────────────────────────
+   TIKTOK EMBEDS
+───────────────────────────────────────────── */
+.tt-embed{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  border:none;
+}
+
+/* ─────────────────────────────────────────────
+   AFFILIATES
+───────────────────────────────────────────── */
+#affiliates{background:var(--bg)}
+.aff-header{max-width:1200px;margin:0 auto 48px;padding:0 56px}
+.aff-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.5vw,56px);font-weight:300;color:var(--fg);margin-bottom:12px}
+.aff-h2 em{font-style:italic;color:var(--tan)}
+.aff-sub{font-size:14px;color:var(--fg2);font-weight:300}
+.aff-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;max-width:1200px;margin:0 auto;padding:0 56px;
+}
+.aff-card{
+  background:var(--card);padding:36px 32px;
+  transition:background .38s;
+}
+.aff-card:hover{background:var(--card2)}
+.aff-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--fg);margin-bottom:8px}
+.aff-offer{font-size:13px;color:var(--fg2);font-weight:300;margin-bottom:18px;line-height:1.6}
+.aff-link{
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sage);border-bottom:1px solid rgba(122,155,92,.3);
+  padding-bottom:2px;transition:color .3s,border-color .3s;
+}
+.aff-link:hover{color:var(--tan);border-color:rgba(196,169,125,.4)}
+
+@media(max-width:960px){
+  .stats-bar{grid-template-columns:repeat(2,1fr);padding:0 24px;margin-top:40px}
+  .aff-header{padding:0 24px}
+  .aff-grid{grid-template-columns:1fr;padding:0 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <span class="nav-logo">Chelsea Liz</span>
+  <!-- ★ EDIT NAV: Add or remove nav links here. Each href should match a section id on the page -->
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#affiliates">Favorites</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn">Work With Me</a>
+</nav>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-grid">
+
+  <!-- LEFT: Photo -->
+  <!-- LEFT: Hero photo — ★ EDIT PHOTO: see CSS comment above to swap this image -->
+  <div class="hero-photo">
+    <div class="hero-photo-inner"></div>
+    <!-- Film corners sit outside the image, framing the column -->
+    <div class="film-corner tl"></div>
+    <div class="film-corner tr"></div>
+    <div class="film-corner bl"></div>
+    <div class="film-corner br"></div>
+  </div>
+
+  <!-- RIGHT: Text -->
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="pill green"><span class="pill-dot"></span>Film</span>
+      <span class="pill lav"><span class="pill-dot"></span>Edit</span>
+      <span class="pill tan"><span class="pill-dot"></span>Create</span>
+    </div>
+    <h1 class="hero-h1">
+      I make ads<br>
+      that feel <span class="hl">real</span><br>
+      for brands<br>
+      worth remembering.
+    </h1>
+    <p class="hero-sub">
+      Content that blends in because it actually belongs there.<br>
+      No polish that kills the trust. No production that screams ad.<br>
+      Just real. That's exactly what converts.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-ghost">See My Work</a>
+      <a href="#services" class="btn-arrow">
+        What I offer
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+          <path d="M1 5H17M13 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div><!-- end hero-content -->
+  </div><!-- end hero-grid -->
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- ══════════════════ ABOUT ══════════════════ -->
+<section id="about">
+  <div class="about-inner">
+    <div class="rev-l">
+      <div class="eyebrow">About</div>
+      <h2 class="about-label">
+        Content that<br>
+        connects.<br>
+        <em>Honestly.</em>
+      </h2>
+    </div>
+    <div class="rev-r d2">
+      <p class="about-bio">
+        I work with brands across tech, lifestyle, pet, and gaming, creating
+        <strong>native social ads and elevated video content</strong> for brands that
+        take their content seriously. True to me, every time.
+      </p>
+      <p class="about-bio">
+        The best-performing ads I've made look nothing like ads. They feel like
+        a real person picked up their phone and shared something they actually use.
+        That's not an accident. <strong>That's the whole strategy.</strong>
+      </p>
+      <p class="about-bio">
+        Based in Austin. Fueled by animals, radical honesty, and the conviction
+        that authenticity isn't a vibe. It's what makes people stop scrolling.
+      </p>
+      <div class="about-tags">
+        <span class="pill green"><span class="pill-dot"></span>Creator-led</span>
+        <span class="pill lav"><span class="pill-dot"></span>Austin TX</span>
+        <span class="pill tan"><span class="pill-dot"></span>UGC &amp; Video</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ★ EDIT STATS: Update the numbers in stat-num spans below -->
+  <div class="stats-bar rev">
+    <div class="stat-cell">
+      <span class="stat-num">17K</span>
+      <span class="stat-lbl">Instagram</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">18.5K</span>
+      <span class="stat-lbl">TikTok</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">3.5K</span>
+      <span class="stat-lbl">YouTube</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">1.6K</span>
+      <span class="stat-lbl">Twitch</span>
+    </div>
+  </div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- ══════════════════ SELECTED WORK ══════════════════ -->
+<section id="work">
+  <div class="wrap">
+    <div class="work-header rev">
+      <div class="eyebrow">Portfolio</div>
+      <h2 class="work-h2">Selected <em>Work</em></h2>
+      <p class="work-sub">A selection of video ads across styles, brands and industries.</p>
+      <div class="filter-tabs" id="filterTabs">
+        <button class="ftab active" data-filter="all">All</button>
+        <button class="ftab" data-filter="lifestyle">Lifestyle</button>
+        <button class="ftab" data-filter="beauty">Beauty</button>
+        <button class="ftab" data-filter="pet">Pet</button>
+        <button class="ftab" data-filter="apps">Apps &amp; Software</button>
+        <button class="ftab" data-filter="games">Games</button>
+        <button class="ftab" data-filter="gear">Photo &amp; Video Gear</button>
+      </div>
+    </div>
+
+    <!-- ★ EDIT WORK GRID: To add/remove/swap a video, update data-cat, work-cat, work-title, and the TikTok video ID in the iframe src -->
+    <div class="work-grid" id="workGrid">
+      <!-- Video 1 -->
+      <div class="work-item rev d1" data-cat="lifestyle">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7607477268151061773" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Lifestyle</p><p class="work-title">GREATER THAN: native integration</p></div>
+      </div>
+      <!-- Video 2 -->
+      <div class="work-item rev d2" data-cat="pet">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7560419264025447693" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Pet</p><p class="work-title">GutzBusta Hay Nets: authentic review</p></div>
+      </div>
+      <!-- Video 3 -->
+      <div class="work-item rev d3" data-cat="pet">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7491774281576271150" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Pet</p><p class="work-title">Sleekez: product storytelling</p></div>
+      </div>
+      <!-- Video 4 -->
+      <div class="work-item rev d4" data-cat="games">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7568932253909208334" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Games</p><p class="work-title">Legend of Khiimori: immersive hook</p></div>
+      </div>
+      <!-- Video 5 -->
+      <div class="work-item rev d1" data-cat="games">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7363054101246086443" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Games</p><p class="work-title">Walmart: high-energy cut</p></div>
+      </div>
+      <!-- Video 6 -->
+      <div class="work-item rev d2" data-cat="games">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7607543273707621646" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Games</p><p class="work-title">Horses of Hoofprint Bay: branded content</p></div>
+      </div>
+      <!-- Video 7 -->
+      <div class="work-item rev d3" data-cat="pet">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7493238621642722602" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Pet</p><p class="work-title">Sleekez: product feature</p></div>
+      </div>
+      <!-- Video 8 -->
+      <div class="work-item rev d4" data-cat="beauty">
+        <div class="work-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7449516725583858987" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="work-info"><p class="work-cat">Beauty</p><p class="work-title">Balmy Tallow: beauty launch</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- ══════════════════ SERVICES ══════════════════ -->
+<section id="services">
+  <div class="services-header rev">
+    <div class="eyebrow">What I Can Do For You</div>
+    <h2 class="services-h2">Three tiers.<br><em>One honest creator.</em></h2>
+    <p class="services-sub">From feed-native content that blends in, to polished ads that stand out, to full creative partnership for brands ready to build something lasting.</p>
+  </div>
+
+  <div class="services-grid">
+    <!-- Tier 1 -->
+    <div class="svc-card rev d1">
+      <div class="svc-type"><span class="svc-type-dot"></span>Tier 01</div>
+      <h3 class="svc-name">Native Social Ads</h3>
+      <p class="svc-tagline">Content that blends into the feed so completely that people stop to watch before they realize it's an ad. Creator-led, camera-in-hand, nothing over-produced.</p>
+      <div class="svc-divider"></div>
+      <p class="svc-label">Includes</p>
+      <ul class="svc-list">
+        <li>Creative concepts + scripts</li>
+        <li>Strong hooks to grab attention fast</li>
+        <li>Raw footage + edited file</li>
+        <li>Subtitles + music and sound effects</li>
+        <li>Usage rights available for purchase</li>
+      </ul>
+      <p class="svc-good"><strong>Good for</strong><br>Organic content, social proof, and performance testing.</p>
+    </div>
+
+    <!-- Tier 2 - featured -->
+    <div class="svc-card featured rev d2">
+      <div class="svc-type"><span class="svc-type-dot" style="background:var(--lavl)"></span>Tier 02</div>
+      <h3 class="svc-name">Premium Ads</h3>
+      <p class="svc-tagline">Bold, cinematic content built to grab attention and convert. More creative, more intentional, for brands that want to make a real impression.</p>
+      <div class="svc-divider"></div>
+      <p class="svc-label">Includes</p>
+      <ul class="svc-list">
+        <li>Ad concepts + scripts</li>
+        <li>Clear messaging and strong hooks</li>
+        <li>Raw files in 4K</li>
+        <li>Cinematic filming (angles, lighting, movement)</li>
+        <li>High-quality editing with effects and animations</li>
+        <li>Subtitles + music and sound effects</li>
+        <li>Usage rights available for purchase</li>
+      </ul>
+      <p class="svc-good"><strong>Good for</strong><br>Paid ads, product launches and scaling brands.</p>
+    </div>
+
+    <!-- Tier 3 -->
+    <div class="svc-card rev d3">
+      <div class="svc-type"><span class="svc-type-dot" style="background:var(--tan)"></span>Tier 03</div>
+      <h3 class="svc-name">Brand Universe<br><span style="font-size:15px;opacity:.6">(Retainer)</span></h3>
+      <p class="svc-tagline">Not just videos — a whole content identity. I help brands build a recognizable visual style so every piece of content feels connected and intentional.</p>
+      <div class="svc-divider"></div>
+      <p class="svc-label">Includes</p>
+      <ul class="svc-list">
+        <li>Creative concepts aligned with your brand</li>
+        <li>Custom monthly video plan</li>
+        <li>Ready-to-use videos</li>
+        <li>Subtitles, music &amp; sound effects</li>
+        <li>Mixed media content</li>
+        <li>Usage rights available for purchase</li>
+      </ul>
+      <p class="svc-good"><strong>Good for</strong><br>Brands that want consistency, creative direction and long-term growth.</p>
+    </div>
+  </div>
+
+  <!-- ── Native Social Ads video row ── -->
+  <!-- ★ EDIT ADS: Swap TikTok video IDs in the iframe src attributes, and update ad-label / ad-name text below -->
+  <div style="height:80px"></div>
+  <div class="ads-section rev">
+    <div class="ads-section-label">Native Social Ads</div>
+    <div class="ads-grid">
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7607477268151061773" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Native</p><p class="ad-name">GREATER THAN — lifestyle</p></div>
+      </div>
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7560419264025447693" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Native</p><p class="ad-name">GutzBusta Hay Nets — pet</p></div>
+      </div>
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7491774281576271150" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Native</p><p class="ad-name">Sleekez — pet</p></div>
+      </div>
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7568932253909208334" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Native</p><p class="ad-name">Legend of Khiimori — games</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Premium Ads video row ── -->
+  <div class="ads-section rev" style="margin-top:60px">
+    <div class="ads-section-label">Premium Ads</div>
+    <div class="ads-grid">
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7363054101246086443" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Premium</p><p class="ad-name">Walmart — games</p></div>
+      </div>
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7607543273707621646" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Premium</p><p class="ad-name">Horses of Hoofprint Bay — games</p></div>
+      </div>
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7493238621642722602" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Premium</p><p class="ad-name">Sleekez — pet</p></div>
+      </div>
+      <div class="ad-item">
+        <div class="ad-thumb">
+          <iframe class="tt-embed" src="https://www.tiktok.com/embed/v2/7449516725583858987" allow="encrypted-media;" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="ad-info"><p class="ad-label">Premium</p><p class="ad-name">Balmy Tallow — beauty</p></div>
+      </div>
+    </div>
+  </div>
+  <div style="height:40px"></div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- ══════════════════ REVIEWS ══════════════════ -->
+<section id="reviews">
+  <div class="rev-header rev">
+    <div class="eyebrow">Reviews</div>
+    <h2 class="rev-h2">Don't take my <em>word for it.</em></h2>
+    <p class="rev-sub">See what brands are saying about working with me.</p>
+  </div>
+  <!-- ★ EDIT REVIEWS: Update the quote text, r-name, and r-brand for each card. To add a third review, copy a card block and add class "d3". -->
+  <div class="reviews-grid">
+    <div class="r-card rev d1">
+      <div class="r-stars">
+        <span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span>
+      </div>
+      <p class="r-quote">"We would love to team up with Chelsea again. Her dog Ghost has been on our chews for a while now and the results are real — her coat improved, she's calmer, and Chelsea's content captured all of it in a way that felt completely genuine. Her audience trusts her and that trust shows in every video she makes. This partnership was exactly what we hoped for."</p>
+      <p class="r-name">Chewia</p>
+      <p class="r-brand"><a href="https://www.instagram.com/chewia.brand/" target="_blank" rel="noopener" style="color:var(--lav);border-bottom:1px solid rgba(155,140,180,.3)">Pet Wellness</a></p>
+    </div>
+    <div class="r-card rev d2">
+      <div class="r-stars">
+        <span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span>
+      </div>
+      <p class="r-quote">"Chelsea is absolutely killing it for us. Her content drives real results because it never looks like an ad — it looks like her life. The authenticity she brings is exactly what Native Pet is built on. She makes our products feel like part of her actual routine, because they genuinely are. We couldn't be happier with this partnership and we are excited to keep building together."</p>
+      <p class="r-name">Native Pet</p>
+      <p class="r-brand"><a href="https://nativepet.com/CHELSEALIZ" target="_blank" rel="noopener" style="color:var(--lav);border-bottom:1px solid rgba(155,140,180,.3)">nativepet.com/CHELSEALIZ</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- ══════════════════ AFFILIATES ══════════════════ -->
+<section id="affiliates">
+  <!-- ★ EDIT AFFILIATES: Add, remove, or update affiliate cards here.
+       Each card needs: aff-brand (name), aff-offer (discount text), and an aff-link with the correct href.
+       Keep the link text short — never show the full URL. -->
+  <div class="aff-header rev">
+    <div class="eyebrow">Favorites &amp; Discounts</div>
+    <h2 class="aff-h2">Brands I <em>actually use.</em></h2>
+    <p class="aff-sub">Tried, tested, and worth it. Every link saves you something.</p>
+  </div>
+  <div class="aff-grid">
+    <div class="aff-card rev d1">
+      <p class="aff-brand">Native Pet</p>
+      <p class="aff-offer">30% off your first order. My dogs are on these supplements and the difference is real.</p>
+      <a href="https://nativepet.com/CHELSEALIZ" target="_blank" rel="noopener" class="aff-link">Shop — 30% off</a>
+    </div>
+    <div class="aff-card rev d2">
+      <p class="aff-brand">Javvy Coffee</p>
+      <p class="aff-offer">20% off with code <strong style="color:var(--fg);font-weight:400">ChelseaLiz</strong>. The coffee I actually reach for every morning.</p>
+      <a href="https://snwbl.io/javy-coffee/ChelseaLiz" target="_blank" rel="noopener" class="aff-link">Shop — 20% off</a>
+    </div>
+    <div class="aff-card rev d3">
+      <p class="aff-brand">Canva</p>
+      <p class="aff-offer">Free Canva Pro trial through my link. The tool I use every week for content.</p>
+      <a href="http://partner.canva.com/ChelseaLiz" target="_blank" rel="noopener" class="aff-link">Start free trial</a>
+    </div>
+    <div class="aff-card rev d1">
+      <p class="aff-brand">Bailey's CBD For Pets</p>
+      <p class="aff-offer">20% off CBD for pets. A brand I trust for my animals.</p>
+      <a href="https://baileyscbdforpets.sjv.io/raDJry" target="_blank" rel="noopener" class="aff-link">Shop — 20% off</a>
+    </div>
+    <div class="aff-card rev d2">
+      <p class="aff-brand">Silver Lining Herbs</p>
+      <p class="aff-offer">10% off equine supplements. What I use for Kosta.</p>
+      <a href="https://collabs.shop/8gyrhe" target="_blank" rel="noopener" class="aff-link">Shop — 10% off</a>
+    </div>
+    <div class="aff-card rev d3">
+      <p class="aff-brand">GutzBusta Hay Nets</p>
+      <p class="aff-offer">10% off with code <strong style="color:var(--fg);font-weight:400">CHELSEALIZTV</strong>. Slow-feed nets that actually hold up.</p>
+      <a href="https://gutzbusta.com/CHELSEALIZTV" target="_blank" rel="noopener" class="aff-link">Shop — 10% off</a>
+    </div>
+  </div>
+  <div style="height:80px"></div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<section id="contact">
+  <div class="contact-glow"></div>
+  <div class="contact-glow2"></div>
+  <div class="contact-inner">
+    <div class="eyebrow rev">Let's Talk</div>
+    <h2 class="contact-h2 rev d1">
+      Let's build<br>
+      something <em>real</em><br>
+      together.
+    </h2>
+    <p class="contact-intro rev d2">
+      If your brand believes in authenticity over aesthetics, and you want your product
+      introduced to an audience that actually trusts the person talking — let's talk.
+    </p>
+    <form class="cf rev d3" onsubmit="return false;">
+      <div class="cf-row">
+        <div class="cf-g"><label class="cf-l">Your Name</label><input type="text" class="cf-i" placeholder="Name"></div>
+        <div class="cf-g"><label class="cf-l">Brand / Company</label><input type="text" class="cf-i" placeholder="Company"></div>
+      </div>
+      <div class="cf-g"><label class="cf-l">Email</label><input type="email" class="cf-i" placeholder="your@email.com"></div>
+      <div class="cf-g">
+        <label class="cf-l">Service</label>
+        <select class="cf-s cf-i">
+          <option value="" disabled selected>Select a tier</option>
+          <option>Native Social Ads</option>
+          <option>Premium Ads</option>
+          <option>Brand Universe (Retainer)</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="cf-g"><label class="cf-l">Message</label><textarea class="cf-t cf-i" placeholder="Tell me about your brand and what you're envisioning..."></textarea></div>
+      <div><button class="btn-sub" type="submit"><span>Send Inquiry</span></button></div>
+    </form>
+    <!-- ★ EDIT EMAIL: Update the email address below in both the href and the link text -->
+    <p style="margin-top:40px;font-size:13px;color:var(--fg2)">
+      Or email me directly at
+      <a href="mailto:chelsea.farace@gmail.com" style="color:var(--lavl);border-bottom:1px solid rgba(192,180,212,.3)">
+        chelsea.farace@gmail.com
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<!-- ★ EDIT FOOTER LINKS: Update the href values below to change your social links -->
+<footer>
+  <div class="foot-inner">
+    <span class="foot-logo">Chelsea Liz</span>
+    <div class="foot-links">
+      <a href="https://instagram.com/_chelsealiz" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com/@chelsealizz" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://youtube.com/@chelsealiz" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.twitch.tv/chelsealiz" target="_blank" rel="noopener">Twitch</a>
+    </div>
+    <p class="foot-copy">&copy; 2026 Chelsea Liz</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('stuck', window.scrollY > 50), {passive:true});
+
+  // Parallax hero
+  const bg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < window.innerHeight * 1.2)
+      bg.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+  }, {passive:true});
+
+  // IntersectionObserver reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold: 0.09, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el => io.observe(el));
+
+  // Filter tabs
+  const tabs = document.querySelectorAll('.ftab');
+  const items = document.querySelectorAll('.work-item');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const f = tab.dataset.filter;
+      items.forEach(item => {
+        if(f === 'all' || item.dataset.cat === f){
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Form submit
+  const form = document.querySelector('.cf');
+  const btn = form.querySelector('.btn-sub');
+  form.addEventListener('submit', () => {
+    btn.innerHTML = '<span>Message Sent ✓</span>';
+    btn.style.background = '#3D5228'; btn.style.color = 'var(--fg)';
+    btn.disabled = true;
+  });
+})();
+</script>
+</body>
+</html>
