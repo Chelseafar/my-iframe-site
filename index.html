@@ -627,18 +627,22 @@ footer{background:var(--bg);padding:48px 56px;border-top:1px solid var(--border)
 }
 .stat-cell{
   background:var(--card);padding:28px 24px;text-align:center;
-  transition:background .38s;
+  transition:background .38s,transform .3s;
+  text-decoration:none;display:block;
 }
-.stat-cell:hover{background:var(--card2)}
+.stat-cell:hover{background:var(--card2);transform:translateY(-2px)}
+.stat-cell:hover .stat-num{color:var(--lavl)}
+.stat-cell:hover .stat-lbl{color:var(--fg2)}
 .stat-num{
   display:block;
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(28px,3.5vw,42px);font-weight:300;
   color:var(--fg);line-height:1;margin-bottom:8px;
+  transition:color .3s;
 }
 .stat-lbl{
   font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--fg2);
+  color:var(--fg2);transition:color .3s;
 }
 
 /* ─────────────────────────────────────────────
@@ -806,24 +810,24 @@ footer{background:var(--bg);padding:48px 56px;border-top:1px solid var(--border)
     </div>
   </div>
 
-  <!-- ★ EDIT STATS: Update the numbers in stat-num spans below -->
+  <!-- ★ EDIT STATS: Update numbers and href links below -->
   <div class="stats-bar rev">
-    <div class="stat-cell">
+    <a class="stat-cell" href="https://instagram.com/_chelsealiz" target="_blank" rel="noopener">
       <span class="stat-num">17K</span>
       <span class="stat-lbl">Instagram</span>
-    </div>
-    <div class="stat-cell">
+    </a>
+    <a class="stat-cell" href="https://tiktok.com/@chelsealizz" target="_blank" rel="noopener">
       <span class="stat-num">18.5K</span>
       <span class="stat-lbl">TikTok</span>
-    </div>
-    <div class="stat-cell">
+    </a>
+    <a class="stat-cell" href="https://youtube.com/@chelsealiz" target="_blank" rel="noopener">
       <span class="stat-num">3.5K</span>
       <span class="stat-lbl">YouTube</span>
-    </div>
-    <div class="stat-cell">
+    </a>
+    <a class="stat-cell" href="https://www.twitch.tv/chelsealiz" target="_blank" rel="noopener">
       <span class="stat-num">1.6K</span>
       <span class="stat-lbl">Twitch</span>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -1344,6 +1348,19 @@ footer{background:var(--bg);padding:48px 56px;border-top:1px solid var(--border)
     document.addEventListener('mouseleave', () => { star.classList.add('hidden'); glow.classList.add('hidden'); });
     document.addEventListener('mouseenter', () => { star.classList.remove('hidden'); glow.classList.remove('hidden'); });
   }
+
+  // ── Wix iframe auto-height (removes Wix's outer scrollbar) ──
+  // Tells Wix to resize the HTML widget to match actual page height
+  function notifyWixHeight(){
+    const h = document.body.scrollHeight;
+    window.parent.postMessage(JSON.stringify({type:'CHANGE_HEIGHT', height: h + 20}), '*');
+  }
+  notifyWixHeight();
+  // Re-notify after fonts/images load and on resize
+  window.addEventListener('load', notifyWixHeight);
+  window.addEventListener('resize', notifyWixHeight);
+  // Also fire once after a short delay for late-loading content
+  setTimeout(notifyWixHeight, 1500);
 
   // Form submit
   const form = document.querySelector('.cf');
