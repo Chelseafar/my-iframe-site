@@ -28,10 +28,11 @@
 
 /* ─── BASE ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px;scrollbar-width:none;-ms-overflow-style:none}
+html{scroll-behavior:smooth;font-size:16px;scrollbar-width:thin;scrollbar-color:var(--forest) var(--bg)}
 body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-/* Hide scrollbar — page still scrolls via wheel/touch, just no visible bar (fixes Wix double-scrollbar) */
-::-webkit-scrollbar{display:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--forest);border-radius:2px}
 img,video{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 
